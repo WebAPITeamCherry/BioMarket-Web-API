@@ -1,4 +1,4 @@
-define(['jquery', 'logic'], function ($, logic) {
+define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 	// lOG IN
 	$(document).on("click", "#login-button", function(){
 		var username = $('#login-nickname').val(),
@@ -61,6 +61,50 @@ define(['jquery', 'logic'], function ($, logic) {
 			};
 			logic.registerClient(client);
 		}
+	});
+
+    // UPDATE CLIENT
+	$(document).on("click", "#client-update-button", function () {
+
+	    var email = $('#client-update-email').val(),
+			password = $('#client-update-password').val(),
+			repeatPassword = $('#client-repeat-update-password').val(),
+			firstName = $('#client-update-firstname').val(),
+			lastName = $('#client-update-lastname').val(),
+			phone = $('#client-update-phone').val();
+
+	    if (email.length === 0) {
+	        alert('Enter email');
+	    }
+	    else if (username.length < 6) {
+	        alert('Username must be at least 6 symbols!');
+	    }
+	    else if (password.length < 6) {
+	        alert('Password must be at least 6 symbols!');
+	    }
+	    else if (password !== repeatPassword) {
+	        alert("The passwords don't match! Please enter them again!");
+	    }
+	    else if (firstName.length === 0) {
+	        alert('Enter first name!');
+	    }
+	    else if (lastName.length === 0) {
+	        alert('Enter last name!');
+	    }
+	    else if (phone.length === 0) {
+	        alert('Enter phone!');
+	    }
+	    else {
+	        var client = {
+	            Email: email,
+	            password: password,
+	            ConfirmPassword: password,
+	            FirstName: firstName,
+	            LastName: lastName,
+	            Phone: phone
+	        };
+	        logic.updateClient(client);
+	    }
 	});
 
 	// REGISTER FARM

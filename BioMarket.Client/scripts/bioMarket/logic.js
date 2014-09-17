@@ -1,5 +1,5 @@
 define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRequest, ui) {
-    var url = 'http://localhost:6022/', /*'http://localhost:3000/',*/
+	var url = 'http://localhost:6022/', /*'http://localhost:3000/',*/
 		contentType = 'application/json',
 		acceptType = 'application/json';
 
@@ -54,6 +54,34 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 			});
 	};
 
+	var updateClient = function (client) {
+	    var message = {
+	        "Email": client.Email,
+	        "UserName": client.UserName,
+	        "password": client.password,
+	        "ConfirmPassword": client.password,
+	        "FirstName": client.FirstName,
+	        "LastName": client.LastName,
+	        "Phone": client.Phone
+	    };
+
+	    httpRequest.postJSON(url + 'api/Account/Update', contentType, acceptType, message)
+			.then(function (success) {
+			    $('#client-update-email').val(' ');
+			    $('#client-update-username').val(' ');
+			    $('#client-update-password').val(' ');
+			    $('#repeat-update-password').val(' ');
+			    $('#client-update-firstname').val(' ');
+			    $('#client-update-lastname').val(' ');
+			    $('#client-update-phone').val(' ');
+			    alert('You profile have been updated! ');
+			    window.location.hash = '#/';
+			},
+			function (err) {
+			    alert(JSON.parse(err.responseText).ModelState[""]);
+			});
+	};
+
 	var registerFarm = function(client) {
 		var message = {
 				"Email" : client.Email,
@@ -88,10 +116,28 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 			});
 	};
 
+	var populateClientProfile = function () {
+	    httpRequest.getJSON(url + 'api/Clients/ByAccount/' + localStorage.getItem('bioMarketUserName'), acceptType)
+            .then(function (success) {
+                $('#client-update-email').val('awd');
+                $('#client-update-password').val('fsaw');
+                $('#repeat-update-password').val('sfaw');
+                $('#client-update-firstname').val(success.FirstName);
+                $('#client-update-lastname').val(success.LastName);
+                $('#client-update-phone').val('');
+                alert('You profile have been updated! ');
+                window.location.hash = '#/';
+            },
+			function (err) {
+			    alert(JSON.parse(err.responseText).ModelState[""]);
+			});
+	}
+
 	return {
 		login : login,
 		logout: logout,
-		registerClient : registerClient,
+		registerClient: registerClient,
+        populateClientProfile: populateClientProfile,
 		registerFarm : registerFarm
 	};
 });

@@ -41,6 +41,25 @@ define(['jquery', 'handlebars', 'kendo'], function ($) {
 
 	};
 
+	var initUpdateClientPage = function () {
+	    initPage('#menu', $('#menu-container'));
+
+	    logic.populateClientProfile();
+
+	    $('#main-content').load('updateClient.html', function () {
+	        $('#client-update-email').kendoMaskedTextBox();
+	        $('#client-update-password').kendoMaskedTextBox();
+	        $('#client-repeat-update-password').kendoMaskedTextBox();
+	        $('#client-update-firstname').kendoMaskedTextBox();
+	        $('#client-update-lastname').kendoMaskedTextBox();
+	        $('#client-update-phone').kendoMaskedTextBox();
+	        $('#client-update-button').kendoButton();
+	        $('#client-update-email').focus();
+	    });
+
+
+	};
+
 	var initRegisterFarmPage = function() {
         initPage('#menu', $('#menu-container'));
 
@@ -119,7 +138,9 @@ define(['jquery', 'handlebars', 'kendo'], function ($) {
 		initHomePage: initHomePage,
 		initLoginPage: initLoginPage,
 		initRegisterClientPage: initRegisterClientPage,
-		initRegisterFarmPage : initRegisterFarmPage,
+		initUpdateClientPage: initUpdateClientPage,
+		initRegisterFarmPage: initRegisterFarmPage,
+        initUpdateFarmPage: initRegisterFarmPage,
 		showError: showError,
 		drawKendoGrid: drawKendoGrid
 	};

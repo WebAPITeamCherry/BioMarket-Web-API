@@ -34,6 +34,10 @@
 				ui.initRegisterFarmPage();
 			});
 
+			this.get("#/myProfile", function () {
+			    ui.initUpdateClientPage();
+			});
+
             this.get("#/updateFarm", function () {
                 ui.initUpdateFarmPage();
             });
