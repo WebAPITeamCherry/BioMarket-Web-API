@@ -1,4 +1,4 @@
-define(['jquery', 'handlebars', 'kendo'], function ($) {
+define(['jquery', 'logic', 'handlebars', 'kendo' ], function ($,logic) {
 	var START_MENU_SIZE = 300;
 
 	var initHomePage = function() {
@@ -44,7 +44,6 @@ define(['jquery', 'handlebars', 'kendo'], function ($) {
 	var initUpdateClientPage = function () {
 	    initPage('#menu', $('#menu-container'));
 
-	    logic.populateClientProfile();
 
 	    $('#main-content').load('updateClient.html', function () {
 	        $('#client-update-email').kendoMaskedTextBox();
@@ -57,6 +56,7 @@ define(['jquery', 'handlebars', 'kendo'], function ($) {
 	        $('#client-update-email').focus();
 	    });
 
+	    logic.populateClientProfile();
 
 	};
 
@@ -97,6 +97,8 @@ define(['jquery', 'handlebars', 'kendo'], function ($) {
             $('#farm-update-button').kendoButton();
             $('#farm-email').focus();
         });
+        
+        logic.populateClientProfile();
     };
 
 	var showError = function(err) {
@@ -140,7 +142,7 @@ define(['jquery', 'handlebars', 'kendo'], function ($) {
 		initRegisterClientPage: initRegisterClientPage,
 		initUpdateClientPage: initUpdateClientPage,
 		initRegisterFarmPage: initRegisterFarmPage,
-        initUpdateFarmPage: initRegisterFarmPage,
+        initUpdateFarmPage: initUpdateFarmPage,
 		showError: showError,
 		drawKendoGrid: drawKendoGrid
 	};

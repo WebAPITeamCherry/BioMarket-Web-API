@@ -125,8 +125,6 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
                 $('#client-update-firstname').val(success.FirstName);
                 $('#client-update-lastname').val(success.LastName);
                 $('#client-update-phone').val('');
-                alert('You profile have been updated! ');
-                window.location.hash = '#/';
             },
 			function (err) {
 			    alert(JSON.parse(err.responseText).ModelState[""]);
