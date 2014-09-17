@@ -131,11 +131,25 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 			});
 	}
 
+	var populateFarmProfile = function () {
+	    httpRequest.getJSON(url + 'api/Farms/ByName/' + localStorage.getItem('bioMarketUserName'), acceptType)
+            .then(function (success) {
+                $('#farm-email').val('awd');
+                $('#farm-owner').val(success.Owner);
+                $('#farm-phone').val('testPhone');
+
+            },
+			function (err) {
+			    alert(JSON.parse(err.responseText).ModelState[""]);
+			});
+	}
+
 	return {
 		login : login,
 		logout: logout,
 		registerClient: registerClient,
-        populateClientProfile: populateClientProfile,
+		populateClientProfile: populateClientProfile,
+		populateFarmProfile: populateFarmProfile,
 		registerFarm : registerFarm
 	};
 });

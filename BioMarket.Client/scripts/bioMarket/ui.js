@@ -98,7 +98,7 @@ define(['jquery', 'logic', 'handlebars', 'kendo' ], function ($,logic) {
             $('#farm-email').focus();
         });
         
-        logic.populateClientProfile();
+        logic.populateFarmProfile();
     };
 
 	var showError = function(err) {
