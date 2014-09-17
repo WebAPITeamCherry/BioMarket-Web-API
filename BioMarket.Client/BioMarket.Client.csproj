@@ -106,6 +106,8 @@
     <Content Include="styles\kendo.blueopal.min.css" />
     <Content Include="styles\kendo.common.min.css" />
     <Content Include="styles\styles.css" />
+    <Content Include="updateClient.html" />
+    <Content Include="updateFarm.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
