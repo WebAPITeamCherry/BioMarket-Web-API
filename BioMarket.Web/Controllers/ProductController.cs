@@ -10,15 +10,15 @@
     public class ProductController : ApiController
     {
         // GET: api/Product
-        public IEnumerable<string> Get()
+        public IHttpActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return  Ok();
         }
 
         // GET: api/Product/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            return Ok();
         }
 
         // POST: api/Product
@@ -28,13 +28,16 @@
         }
 
         // PUT: api/Product/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]string value)
         {
+            return Ok();
+
         }
 
         // DELETE: api/Product/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            return Ok();
         }
     }
 }
