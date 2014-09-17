@@ -71,6 +71,17 @@ body {
 	display:block;
 }
 
+.main-content .photo {
+	margin-top: 10px;
+	width : 80%;
+	height: 300px;
+}
+
+.main-content .fileBrowser {
+	display: none;
+}
+
+
 .getpost-page .k-grid {
 	margin-top:50px;
 	width:100%;
