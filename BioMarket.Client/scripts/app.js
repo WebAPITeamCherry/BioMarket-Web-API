@@ -34,6 +34,10 @@
 				ui.initRegisterFarmPage();
 			});
 
+            this.get("#/updateFarm", function () {
+                ui.initUpdateFarmPage();
+            });
+
 			this.get("#/logout", function () {
 				logic.logout();
 			});
