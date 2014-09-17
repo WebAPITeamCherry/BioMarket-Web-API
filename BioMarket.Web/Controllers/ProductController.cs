@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿namespace BioMarket.Web.Controllers
+namespace BioMarket.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -42,7 +41,6 @@
         }
     }
 }
-=======
 ﻿namespace BioMarket.Web.Controllers
 {
     using System;
@@ -83,4 +81,3 @@
         }
     }
 }
->>>>>>> 5ec276da64c6e28b193769730586870d8be58a0a
