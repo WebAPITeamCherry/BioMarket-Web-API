@@ -71,6 +71,7 @@
     <Content Include="index.html" />
     <Content Include="login.html" />
     <Content Include="menu.html" />
+    <Content Include="offersSearch.html" />
     <Content Include="registerClient.html" />
     <Content Include="registerFarm.html" />
     <Content Include="scripts\app.js" />
