@@ -93,6 +93,7 @@
     <Content Include="scripts\libs\sha1.js" />
     <Content Include="scripts\libs\sinon.js" />
     <Content Include="scripts\libs\underscore.js" />
+    <Content Include="showClientProfile.html" />
     <Content Include="styles\BlueOpal\editor.png" />
     <Content Include="styles\BlueOpal\imagebrowser.png" />
     <Content Include="styles\BlueOpal\indeterminate.gif" />
