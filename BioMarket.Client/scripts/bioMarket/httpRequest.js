@@ -21,11 +21,7 @@ define(['Q'], function (Q) {
 
 		var postJSON = function(url, contentType, acceptType, data, sessionKey) {
 			var deferred = Q.defer(),
-				type = 'PUT';
-
-			if (data) {
 				type = 'POST';
-			}
 
 			Q.stopUnhandledRejectionTracking();
 
@@ -48,9 +44,35 @@ define(['Q'], function (Q) {
 			return deferred.promise;
 		};
 
+		var putJSON = function (url, contentType, acceptType, data, sessionKey) {
+		    var deferred = Q.defer(),
+				type = 'PUT';
+
+		    Q.stopUnhandledRejectionTracking();
+
+		    $.ajax({
+		        url: url,
+		        type: type,
+		        method: type,
+		        dataType: "json",
+		        ContentType: "application/json; charset=utf-8",
+		        AcceptType: acceptType,
+		        data: data,
+		        success: function (data) {
+		            deferred.resolve(data);
+		        },
+		        error: function (err) {
+		            deferred.reject(err);
+		        }
+		    });
+
+		    return deferred.promise;
+		};
+
 		return {
 			getJSON: getJSON,
-			postJSON: postJSON
+			postJSON: postJSON,
+            putJSON: putJSON
 		};
 	}());
 	return httpRequest;

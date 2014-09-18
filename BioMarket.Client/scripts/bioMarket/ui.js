@@ -59,10 +59,9 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 			$('#client-update-email').focus();
 		});
 
-		logic.populateClientProfile();
+		logic.populateClientUpdateProfile();
 
 	};
-	
 
 	var initShowClientProfilePage = function ()
 	{

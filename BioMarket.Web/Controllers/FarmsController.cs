@@ -122,6 +122,7 @@
 
             this.data.SaveChanges();
 
+            farm.Id = existingFarm.Id;
 
             var newFarm = new
             {
