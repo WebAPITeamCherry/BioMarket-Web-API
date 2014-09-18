@@ -237,15 +237,15 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 
 	// ADD OFFER
 	$(document).on("click", "#add-offer-button", function(){
-		var product = $('#add-offer-product').val(),
+		var product = $('#add-offer-products').val(),
 			quantity = $('#add-offer-quantity').val(),
 			photo = "photo",
-			postDate = new DateTime();
+			postDate = new Date();
 
 		if (product.length === 0) {
 			alert('Choose product');
 		}
-		else if (quantity.length < 6) {
+		else if (quantity.length === 0) {
 			alert('Choose quantity!');
 		}
 		else {
