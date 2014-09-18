@@ -129,7 +129,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 			$('#add-offer-choose-photo-button').kendoButton();
 			$('#add-offer-button').kendoButton();
 			$('#add-offer-product').focus();
-			addProducts();
+			addProductsToOffer();
 		});
 	};
 
@@ -143,7 +143,6 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 	        $('#add-product-choose-photo-button').kendoButton();
 	        $('#add-product-button').kendoButton();
 	        $('#add-product-product').focus();
-	        //addProducts();
 	    });
 	};
 
@@ -183,7 +182,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 	}
 
 	// Adding products types from JSON array to Kendo multiselect
-	var addProducts = function() {
+	var addProductsToOffer = function () {
 		var	products = [];
 
 		httpRequest.getJSON(url + 'api/Product/All', contentType, acceptType)

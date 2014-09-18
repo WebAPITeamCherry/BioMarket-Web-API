@@ -260,4 +260,15 @@ define(['jquery', 'logic', 'httpRequest'	], function ($, logic, httpRequest) {
 			logic.addOffer(offer);
 		}
 	});
+
+
+    // ADD PRODUCT
+	$(document).on("click", "#add-product-button", function () {
+	    var product = {
+	        name: $("#add-product-name").Val(),
+	        price: $("#add-product-price").Val(),
+	    };
+
+	    logic.addProduct(product);
+	});
 });
