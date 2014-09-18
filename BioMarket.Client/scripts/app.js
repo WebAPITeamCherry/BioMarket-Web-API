@@ -50,6 +50,10 @@
 			this.get("#/logout", function () {
 				logic.logout();
 			});
+
+			this.get("#/addProduct", function () {
+			    ui.initAddProductPage();
+			});
 		});
 
 		app.run("#/");

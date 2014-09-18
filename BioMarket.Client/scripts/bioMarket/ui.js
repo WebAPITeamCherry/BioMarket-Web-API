@@ -118,6 +118,20 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 		});
 	};
 
+	var initAddProductPage = function () {
+	    initPage('#menu', $('#menu-container'));
+
+	    $('#main-content').load('addProduct.html', function () {
+	        $('#add-product-name').kendoMaskedTextBox();
+	        $('#add-product-price').kendoMaskedTextBox();
+	        $('#add-product-quantity').kendoMaskedTextBox();
+	        $('#add-product-choose-photo-button').kendoButton();
+	        $('#add-product-button').kendoButton();
+	        $('#add-product-product').focus();
+	        //addProducts();
+	    });
+	};
+
 	var showError = function(err) {
 		$('#main-content').text(err.responseText);
 	};
@@ -193,6 +207,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 		initUpdateFarmPage: initUpdateFarmPage,
 		initAddOfferPage: initAddOfferPage,
 		showError: showError,
-		drawKendoGrid: drawKendoGrid
+		drawKendoGrid: drawKendoGrid,
+		initAddProductPage: initAddProductPage
 	};
 });

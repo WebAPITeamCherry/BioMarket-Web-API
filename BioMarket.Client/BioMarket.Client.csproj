@@ -65,6 +65,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="addOffer.html" />
+    <Content Include="AddProduct.html" />
     <Content Include="createPost.html" />
     <Content Include="getPosts.html" />
     <Content Include="home.html" />
