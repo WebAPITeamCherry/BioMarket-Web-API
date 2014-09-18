@@ -9,7 +9,6 @@
 			cryptojs: 'libs/cryptojs',
 			sha1: 'libs/sha1',
 			underscore: 'libs/underscore',
-			dropbox : 'libs/dropins',
 			httpRequest : "bioMarket/httpRequest",
 			logic: "bioMarket/logic",
 			ui: "bioMarket/ui",
