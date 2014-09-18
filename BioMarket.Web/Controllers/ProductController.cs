@@ -1,43 +1,99 @@
 namespace BioMarket.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using System.Web.Http;
+
+    using BioMarket.Data;
+    using BioMarket.Web.Models;
+
 
     public class ProductController : ApiController
     {
-        // GET: api/Product
-        public IHttpActionResult Get()
+
+        private readonly IBioMarketData data;
+
+        public ProductController()
+            : this(new BioMarketData())
         {
-            return  Ok();
         }
 
-        // GET: api/Product/5
-        public IHttpActionResult Get(int id)
+        public ProductController(IBioMarketData data)
         {
-            return Ok();
+            this.data = data;
         }
 
-        // POST: api/Product
-        public IHttpActionResult Post([FromBody]string value)
+        [HttpGet]
+        public IHttpActionResult All()
         {
-            return Ok(value);
+            var products = this.data
+            .Products
+                               .All()
+                               .Where(p => p.Deleted == false)
+                               .Select(ProductModel.FromProduct);
+
+            return this.Ok(products);
         }
 
-        // PUT: api/Product/5
-        public IHttpActionResult Put(int id, [FromBody]string value)
+        [HttpGet]
+        public IHttpActionResult ById(int id)
         {
-            return Ok();
+            var product = this.data
+            .Products
+                              .All()
+                              .Where(p => p.Id == id && p.Deleted == false)
+                              .Select(ProductModel.FromProduct);
 
+            if (product == null)
+            {
+                return this.BadRequest("Product does not exists - invalid id");
+            }
+
+            return this.Ok(product);
         }
 
-        // DELETE: api/Product/5
+        [HttpGet]
+        public IHttpActionResult ByName(string id)
+        {
+            var product = this.data
+            .Products
+                              .All()
+                              .Where(p => p.Name == id && p.Deleted == false)
+                              .Select(ProductModel.FromProduct);
+
+            if (product == null)
+            {
+                return this.BadRequest("Product does not exists - invalid name");
+            }
+
+            return this.Ok(product);
+        }
+
+        [Authorize]
+        [HttpPut]
         public IHttpActionResult Delete(int id)
         {
-            return Ok();
+            var isFarmer = this.User.IsInRole("Farmer");
+
+            if (!isFarmer)
+            {
+                return this.BadRequest("You are not farmer!");
+            }
+
+            var product = this.data
+            .Products.All()
+                              .Where(p => p.Id == id && p.Deleted == false)
+                              .FirstOrDefault();
+
+            if (product == null)
+            {
+                return this.BadRequest("Such product does not exists!");
+            }
+
+            product.Deleted = true;
+
+            this.data.SaveChanges();
+
+            return this.Ok(product);
         }
     }
 }
