@@ -1,4 +1,4 @@
-define(['jquery', 'logic', 'httpRequest'	], function ($, logic, httpRequest) {
+define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 	// lOG IN
 	$(document).on("click", "#login-button", function(){
 		var username = $('#login-nickname').val(),
@@ -153,51 +153,50 @@ define(['jquery', 'logic', 'httpRequest'	], function ($, logic, httpRequest) {
 		}
 	});
 
-	// UPDATE FARM
+    // UPDATE FARM
 	$(document).on("click", "#farm-update-button", function () {
-		var email = $('#farm-email').val(),
-			username = $('#farm-username').val(),
-			oldPassword = $('#farm-old-password').val(),
+	    var email = $('#farm-update-email').val(),
+			username = $('#farm-update-username').val(),
 			newPassword = $('#farm-new-password').val(),
 			repeatPassword = $('#farm-repeat-new-password').val(),
-			name = $('#farm-name').val(),
-			address = $('#farm-address').val(),
-			phone = $('#farm-phone').val(),
-			owner = $('#farm-owner').val(),
-			latitude = $('#farm-latitude').val(),
-			longitude = $('#farm-longitude').val();
+			name = $('#farm-update-name').val(),
+			address = $('#farm-update-address').val(),
+			phone = $('#farm-update-phone').val(),
+			owner = $('#farm-update-owner').val(),
+			latitude = $('#farm-update-latitude').val(),
+			longitude = $('#farm-update-longitude').val();
 
 
-		if (email.length === 0) {
-			alert('Enter email');
-		}
-		else if (username.length < 6) {
-			alert('Username must be at least 6 symbols!');
-		}
-		else if (newPassword.length < 6) {
-			alert('Password must be at least 6 symbols!');
-		}
-		else if (newPassword !== repeatPassword) {
-			alert("The passwords don't match! Please enter them again!");
-		}
-		else if (name.length === 0) {
-			alert('Enter first name!');
-		}
-		else {
-			var farm = {
-				Email: email,
-				UserName: username,
-				password: password,
-				ConfirmPassword: password,
-				Name: name,
-				Address: address,
-				Phone: phone,
-				Owner: owner,
-				Latitude: latitude,
-				Longitude: longitude
-			};
-			logic.updateFarm(farm);
-		}
+	    if (email.length === 0) {
+	        alert('Enter email');
+	    }
+	    else if (username.length < 6) {
+	        alert('Username must be at least 6 symbols!');
+	    }
+	    else if (newPassword.length < 6) {
+	        alert('Password must be at least 6 symbols!');
+	    }
+	    else if (newPassword !== repeatPassword) {
+	        alert("The passwords don't match! Please enter them again!");
+	    }
+	    else if (name.length === 0) {
+	        alert('Enter first name!');
+	    }
+	    else {
+	        var farm = {
+	            Email: email,
+	            UserName: username,
+	            password: newPassword,
+	            ConfirmPassword: repeatPassword,
+	            Name: name,
+	            Address: address,
+	            Phone: phone,
+	            Owner: owner,
+	            Latitude: latitude,
+	            Longitude: longitude
+	        };
+	        logic.updateFarm(farm);
+	    }
 	});
 
 	// CHOOSE PICTURE FOR OFFER
@@ -215,21 +214,21 @@ define(['jquery', 'logic', 'httpRequest'	], function ($, logic, httpRequest) {
 			fr.onload = function () {
 				document.getElementById('add-offer-image').src = fr.result;
 
-				var options = {
-					files: [
-						{'url': 'https://dl.dropboxusercontent.com', 'filename': evt.target.files[0].name},
-					],
+		var options = {
+			files: [
+				{'url': 'https://dl.dropboxusercontent.com', 'filename': evt.target.files[0].name},
+			],
 
-					success: function () {},
+			success: function () {},
 
-					progress: function (progress) {},
+			progress: function (progress) {},
 
-					cancel: function () {},
+			cancel: function () {},
 
-					error: function (errorMessage) {}
-				};
+			error: function (errorMessage) {}
+		};
 
-				Dropbox.save(options);
+		Dropbox.save(options);
 			};
 			fr.readAsDataURL(files[0]);
 		}

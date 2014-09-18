@@ -59,19 +59,16 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 			$('#client-update-email').focus();
 		});
 
-		logic.populateClientProfile();
+		logic.populateClientUpdateProfile();
 
 	};
 
-	var initShowClientProfile = function ()
+	var initShowClientProfilePage = function ()
 	{
 	    initPage('#menu', $('#menu-container'));
 
 
 	    $('#main-content').load('showClientProfile.html', function () {
-	        $('#client-update-firstname').kendoMaskedTextBox();
-	        $('#client-update-lastname').kendoMaskedTextBox();
-	        $('#client-update-phone').kendoMaskedTextBox();
 	        $('#client-edit-profile-button').kendoButton();
 	    });
 
@@ -97,27 +94,44 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 		});
 	};
 
+	var initFarmInfoPage = function () {
+	    initPage('#menu', $('#menu-container'));
+
+	    $('#main-content').load('farmInfo.html', function () {       
+	        $('#farm-name');
+	        $('#farm-address');
+	        $('#farm-phone');
+	        $('#farm-owner');
+	        $('#farm-latitude');
+	        $('#farm-longitude');
+	        $('#farm-update-button').kendoButton();
+	        $('#farm-delete-button').kendoButton();
+	    });
+
+	    logic.populateFarmProfile();
+	};
+
 	var initUpdateFarmPage = function() {
 		initPage('#menu', $('#menu-container'));
 
 		$('#main-content').load('updateFarm.html', function() {
-			$('#farm-email').kendoMaskedTextBox();
-			$('#farm-username').kendoMaskedTextBox();
+		    $('#farm-update-email').kendoMaskedTextBox();
+		    $('#farm-update-username').kendoMaskedTextBox();
 			$('#farm-old-password').kendoMaskedTextBox();
 			$('#farm-new-password').kendoMaskedTextBox();
 			$('#farm-repeat-new-password').kendoMaskedTextBox();
-			$('#farm-name').kendoMaskedTextBox();
-			$('#farm-address').kendoMaskedTextBox();
-			$('#farm-phone').kendoMaskedTextBox();
-			$('#farm-owner').kendoMaskedTextBox();
-			$('#farm-latitude').kendoMaskedTextBox();
-			$('#farm-longitude').kendoMaskedTextBox();
-			$('#farm-update-button').kendoButton();
-			$('#farm-delete-button').kendoButton();
-			$('#farm-email').focus();
+			$('#farm-update-name').kendoMaskedTextBox();
+			$('#farm-update-address').kendoMaskedTextBox();
+			$('#farm-update-phone').kendoMaskedTextBox();
+			$('#farm-update-owner').kendoMaskedTextBox();
+			$('#farm-update-latitude').kendoMaskedTextBox();
+			$('#farm-update-longitude').kendoMaskedTextBox();
+			$('#farm-update-update-button').kendoButton();
+			$('#farm-update-delete-button').kendoButton();
+			$('#farm-update-email').focus();
 		});
 		
-		logic.populateFarmProfile();
+		logic.populateFarmUpdateProfile();
 	};
 
 	var initAddOfferPage = function() {
@@ -216,9 +230,10 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 		initHomePage: initHomePage,
 		initLoginPage: initLoginPage,
 		initRegisterClientPage: initRegisterClientPage,
-	    initShowClientProfile: initShowClientProfile,
+		initShowClientProfilePage: initShowClientProfilePage,
 		initUpdateClientPage: initUpdateClientPage,
 		initRegisterFarmPage: initRegisterFarmPage,
+		initFarmInfoPage: initFarmInfoPage,
 		initUpdateFarmPage: initUpdateFarmPage,
 		initAddOfferPage: initAddOfferPage,
 		showError: showError,
