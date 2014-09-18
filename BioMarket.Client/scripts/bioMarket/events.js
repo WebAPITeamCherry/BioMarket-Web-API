@@ -153,6 +153,53 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 		}
 	});
 
+    // UPDATE FARM
+	$(document).on("click", "#farm-update-button", function () {
+	    var email = $('#farm-email').val(),
+			username = $('#farm-username').val(),
+			oldPassword = $('#farm-old-password').val(),
+			newPassword = $('#farm-new-password').val(),
+			repeatPassword = $('#farm-repeat-new-password').val(),
+			name = $('#farm-name').val(),
+			address = $('#farm-address').val(),
+			phone = $('#farm-phone').val(),
+			owner = $('#farm-owner').val(),
+			latitude = $('#farm-latitude').val(),
+			longitude = $('#farm-longitude').val();
+
+
+	    if (email.length === 0) {
+	        alert('Enter email');
+	    }
+	    else if (username.length < 6) {
+	        alert('Username must be at least 6 symbols!');
+	    }
+	    else if (newPassword.length < 6) {
+	        alert('Password must be at least 6 symbols!');
+	    }
+	    else if (newPassword !== repeatPassword) {
+	        alert("The passwords don't match! Please enter them again!");
+	    }
+	    else if (name.length === 0) {
+	        alert('Enter first name!');
+	    }
+	    else {
+	        var farm = {
+	            Email: email,
+	            UserName: username,
+	            password: password,
+	            ConfirmPassword: password,
+	            Name: name,
+	            Address: address,
+	            Phone: phone,
+	            Owner: owner,
+	            Latitude: latitude,
+	            Longitude: longitude
+	        };
+	        logic.updateFarm(farm);
+	    }
+	});
+
 	// CHOOSE PICTURE FOR OFFER
 	$(document).on("click", "#add-offer-choose-photo-button", function(){
 		$("#files").click();

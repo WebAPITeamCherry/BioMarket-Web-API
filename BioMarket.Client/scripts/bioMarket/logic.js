@@ -37,7 +37,7 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 				"Phone" : client.Phone
 			};
 
-		httpRequest.postJSON(url + 'api/Account/Register', contentType, acceptType, message)
+		httpRequest.postJSON(url + 'api/Account/Update', contentType, acceptType, message)
 			.then(function(success) {
 				$('#client-register-email').val(' ');
 				$('#client-register-username').val(' ');
@@ -65,7 +65,7 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 			"Phone": client.Phone
 		};
 
-		httpRequest.postJSON(url + 'api/Account/Update', contentType, acceptType, message)
+	    httpRequest.postJSON(url + 'api/Account/Update' + localStorage.getItem('bioMarketUserName'), contentType, acceptType, message)
 			.then(function (success) {
 				$('#client-update-email').val(' ');
 				$('#client-update-username').val(' ');
@@ -113,6 +113,41 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 			},
 			function(err){
 				alert(JSON.parse(err.responseText).ModelState[""]);
+			});
+	};
+
+	var updateFarm = function (client) {
+	    var message = {
+	        "Email": client.Email,
+	        "UserName": client.UserName,
+	        "password": client.password,
+	        "ConfirmPassword": client.password,
+	        "Name": client.Name,
+	        "Address": client.Address,
+	        "Phone": client.Phone,
+	        "Owner": client.Owner,
+	        "Latitude": client.Latitude,
+	        "Longitude": client.Longitude
+	    };
+
+	    httpRequest.postJSON(url + 'api/Farms/Update' + localStorage.getItem('bioMarketUserName'), contentType, acceptType, message)
+			.then(function (success) {
+			    $('#farm-email').val(' ');
+			    $('#farm-username').val(' ');
+			    $('#farm-old-password').val(' ');
+			    $('#farm-new-password').val(' ');
+			    $('#farm-repeat-new-password').val(' ');
+			    $('#farm-name').val(' ');
+			    $('#farm-address').val(' ');
+			    $('#farm-phone').val(' ');
+			    $('#farm-owner').val(' ');
+			    $('#farm-latitude').val(' ');
+			    $('#farm-longitude').val(' ');
+			    alert('Your profile has been updated.');
+			    window.location.hash = '#/';
+			},
+			function (err) {
+			    alert(JSON.parse(err.responseText).ModelState[""]);
 			});
 	};
 
@@ -176,9 +211,11 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 		login : login,
 		logout: logout,
 		registerClient: registerClient,
+		updateClient:updateClient,
 		populateClientProfile: populateClientProfile,
 		populateFarmProfile: populateFarmProfile,
-		registerFarm : registerFarm,
+		registerFarm: registerFarm,
+		updateFarm: updateFarm,
 		addOffer: addOffer
 	};
 });

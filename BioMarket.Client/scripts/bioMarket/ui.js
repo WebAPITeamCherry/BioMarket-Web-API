@@ -97,6 +97,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 			$('#farm-latitude').kendoMaskedTextBox();
 			$('#farm-longitude').kendoMaskedTextBox();
 			$('#farm-update-button').kendoButton();
+			$('#farm-delete-button').kendoButton();
 			$('#farm-email').focus();
 		});
 		
