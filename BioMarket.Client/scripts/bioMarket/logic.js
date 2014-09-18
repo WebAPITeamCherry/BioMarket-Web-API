@@ -1,5 +1,5 @@
 define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRequest, ui) {
-	var url = 'http://biomarket.apphb.com/', /*'http://localhost:6022/',*/
+    var url = 'http://biomarket.apphb.com/', /*'http://localhost:6022/'*/
 		contentType = 'application/json',
 		acceptType = 'application/json';
 
@@ -65,7 +65,7 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 			"Phone": client.Phone
 		};
 
-	    httpRequest.postJSON(url + 'api/Account/Update' + localStorage.getItem('bioMarketUserName'), contentType, acceptType, message)
+	    httpRequest.postJSON(url + 'api/Account/Update/' + localStorage.getItem('bioMarketUserName'), contentType, acceptType, message)
 			.then(function (success) {
 				$('#client-update-email').val(' ');
 				$('#client-update-username').val(' ');
@@ -130,7 +130,7 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 	        "Longitude": client.Longitude
 	    };
 
-	    httpRequest.postJSON(url + 'api/Farms/Update' + localStorage.getItem('bioMarketUserName'), contentType, acceptType, message)
+	    httpRequest.postJSON(url + 'api/Farms/Update/' + localStorage.getItem('bioMarketUserName'), contentType, acceptType, message)
 			.then(function (success) {
 			    $('#farm-email').val(' ');
 			    $('#farm-username').val(' ');
@@ -197,13 +197,32 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 	var populateFarmProfile = function () {
 		httpRequest.getJSON(url + 'api/Farms/ByName/' + localStorage.getItem('bioMarketUserName'), acceptType)
 			.then(function (success) {
-				$('#farm-email').val('awd');
-				$('#farm-owner').val(success.Owner);
-				$('#farm-phone').val('testPhone');
-
+				$('#farm-name').text(success.Name);
+				$('#farm-address').text(success.Address);
+				$('#farm-phone').text(success.Phones);
+				$('#farm-owner').text(success.Owner);
+				$('#farm-latitude').text(success.Latitude);
+				$('#farm-longitude').text(success.Longitude);
 			},
 			function (err) {
 				alert(JSON.parse(err.responseText).ModelState[""]);
+			});
+	};
+
+	var populateFarmUpdateProfile = function () {
+	    httpRequest.getJSON(url + 'api/Farms/ByName/' + localStorage.getItem('bioMarketUserName'), acceptType)
+			.then(function (success) {
+			    $('#farm-update-email').val(success.Email);
+			    $('#farm-update-username').val(success.UserName);
+			    $('#farm-update-name').val(success.Name);
+			    $('#farm-update-address').val(success.Address);
+			    $('#farm-update-phone').val(success.Phones);
+			    $('#farm-update-owner').val(success.Owner);
+			    $('#farm-update-latitude').val(success.Latitude);
+			    $('#farm-update-longitude').val(success.Longitude);
+			},
+			function (err) {
+			    alert(JSON.parse(err.responseText).ModelState[""]);
 			});
 	};
 
@@ -214,6 +233,7 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 		updateClient:updateClient,
 		populateClientProfile: populateClientProfile,
 		populateFarmProfile: populateFarmProfile,
+		populateFarmUpdateProfile: populateFarmUpdateProfile,
 		registerFarm: registerFarm,
 		updateFarm: updateFarm,
 		addOffer: addOffer

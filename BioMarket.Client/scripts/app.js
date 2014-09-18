@@ -39,6 +39,10 @@
 				ui.initUpdateClientPage();
 			});
 
+			this.get("#/farmInfo", function () {
+			    ui.initFarmInfoPage();
+			});
+
             this.get("#/updateFarm", function () {
                 ui.initUpdateFarmPage();
             });
