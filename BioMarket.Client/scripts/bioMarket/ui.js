@@ -44,7 +44,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 
 	};
 
-	var initUpdateClientPage = function () {
+	var initUpdateClientPage = function() {
 		initPage('#menu', $('#menu-container'));
 
 
@@ -62,6 +62,21 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 		logic.populateClientProfile();
 
 	};
+
+	var initShowClientProfile = function ()
+	{
+	    initPage('#menu', $('#menu-container'));
+
+
+	    $('#main-content').load('showClientProfile.html', function () {
+	        $('#client-update-firstname').kendoMaskedTextBox();
+	        $('#client-update-lastname').kendoMaskedTextBox();
+	        $('#client-update-phone').kendoMaskedTextBox();
+	        $('#client-edit-profile-button').kendoButton();
+	    });
+
+	    logic.populateClientProfile();
+	}
 
 	var initRegisterFarmPage = function() {
 		initPage('#menu', $('#menu-container'));
@@ -188,6 +203,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 		initHomePage: initHomePage,
 		initLoginPage: initLoginPage,
 		initRegisterClientPage: initRegisterClientPage,
+	    initShowClientProfile: initShowClientProfile,
 		initUpdateClientPage: initUpdateClientPage,
 		initRegisterFarmPage: initRegisterFarmPage,
 		initUpdateFarmPage: initUpdateFarmPage,
