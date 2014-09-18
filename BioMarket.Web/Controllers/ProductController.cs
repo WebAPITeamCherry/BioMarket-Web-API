@@ -52,12 +52,12 @@ namespace BioMarket.Web.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult ByName(string id)
+        public IHttpActionResult ByName(string name)
         {
             var product = this.data
             .Products
                               .All()
-                              .Where(p => p.Name == id && p.Deleted == false)
+                              .Where(p => p.Name == name && p.Deleted == false)
                               .Select(ProductModel.FromProduct);
 
             if (product == null)
