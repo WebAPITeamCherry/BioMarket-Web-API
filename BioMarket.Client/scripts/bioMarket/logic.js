@@ -1,5 +1,5 @@
 define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRequest, ui) {
-	var url = 'http://localhost:6022/', /*'http://localhost:3000/',*/
+	var url = 'http://biomarket.apphb.com/', /*'http://localhost:6022/',*/
 		contentType = 'application/json',
 		acceptType = 'application/json';
 

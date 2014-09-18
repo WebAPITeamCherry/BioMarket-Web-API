@@ -1,6 +1,7 @@
 define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,logic, httpRequest) {
-	var START_MENU_SIZE = 300;
-	var contentType = 'application/json',
+	var START_MENU_SIZE = 300,
+		url = 'http://biomarket.apphb.com/', /*'http://localhost:6022/',*/
+		contentType = 'application/json',
 		acceptType = 'application/json';
 
 	var initHomePage = function() {
@@ -169,10 +170,9 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 
 	// Adding products types from JSON array to Kendo multiselect
 	var addProducts = function() {
-		var url = 'http://localhost:6022/api/Product/All',
-			products = [];
+		var	products = [];
 
-		httpRequest.getJSON(url, contentType, acceptType)
+		httpRequest.getJSON(url + 'api/Product/All', contentType, acceptType)
 			.then(function (data) {
 					products = data;
 					handleBarConvert($('#product-template'), $('#add-offer-products'), products);
