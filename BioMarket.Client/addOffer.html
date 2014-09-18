@@ -1,6 +1,7 @@
 <div id="add-offer-page" class="register-page">
 	<label>Product:</label>
-	<input type="text" id="add-offer-product" class="text-box">
+	<select id = "add-offer-products" class = "comboBox" data-placeholder="Select product">	
+	</select>
 	<label>Quantity:</label>
 	<input type="text" id="add-offer-quantity" class="text-box">
 	<label>Photo:</label>
@@ -9,4 +10,13 @@
 	<img src="" alt="" class="photo" id="add-offer-image">
 	<input type="file" id="files" class="fileBrowser" accept="image/x-png, image/bmp, image/jpeg"/>
 	<button id="add-offer-button" class="button">Add</button>
+		<script id="product-template" type="text/x-handlebars-template">
+        <select class = "product-list">      
+            {{#each products}}  
+            <option value = {{Name}}>
+             	{{Name}}               
+            </option>
+            {{/each}}           
+        </select>
+    </script>
 </div>

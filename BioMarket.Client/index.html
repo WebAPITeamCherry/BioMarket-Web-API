@@ -11,5 +11,14 @@
 <body>	
 	<nav id = "menu-container" class = 'menu-container'></nav>
     <div id="main-content" class="main-content">
+        <script id="product-template" type="text/x-handlebars-template">
+        <select class = "product-list">      
+            {{#each products}}  
+            <option value = {{Name}}>
+                {{Name}}               
+            </option>
+            {{/each}}           
+        </select>
+    </script>
 </body>
 </html>

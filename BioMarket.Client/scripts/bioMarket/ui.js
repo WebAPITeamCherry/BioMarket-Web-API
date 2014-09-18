@@ -1,5 +1,7 @@
-define(['jquery', 'logic', 'handlebars', 'kendo'], function ($,logic) {
+define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,logic, httpRequest) {
 	var START_MENU_SIZE = 300;
+	var contentType = 'application/json',
+		acceptType = 'application/json';
 
 	var initHomePage = function() {
 		var username = localStorage.getItem('crowdShareUserName');
@@ -103,13 +105,14 @@ define(['jquery', 'logic', 'handlebars', 'kendo'], function ($,logic) {
 
 	var initAddOfferPage = function() {
 		initPage('#menu', $('#menu-container'));
-
+		
 		$('#main-content').load('addOffer.html', function() {
-			$('#add-offer-product').kendoMultiSelect().data(test);
+			$('#add-offer-products').kendoComboBox();
 			$('#add-offer-quantity').kendoMaskedTextBox();
 			$('#add-offer-choose-photo-button').kendoButton();
 			$('#add-offer-button').kendoButton();
 			$('#add-offer-product').focus();
+			addProducts();
 		});
 	};
 
@@ -146,6 +149,38 @@ define(['jquery', 'logic', 'handlebars', 'kendo'], function ($,logic) {
 						]
 		});
 
+	}
+
+	// Adding products types from JSON array to Kendo multiselect
+	var addProducts = function() {
+		var url = 'http://localhost:6022/api/Product/All',
+			products = [];
+
+		httpRequest.getJSON(url, contentType, acceptType)
+			.then(function (data) {
+					products = data;
+					handleBarConvert($('#product-template'), $('#add-offer-products'), products);
+					$("#add-offer-products").kendoComboBox().data("kendoComboBox");
+				}, function (err) {
+					alert(JSON.parse(err.responseText).message);
+				}
+			);
+
+
+	};
+
+	// Handlebar templates
+	function handleBarConvert(template, container, items) {
+		Handlebars.registerHelper('multiply', function (first, second) {
+			var result = first * second;
+			return result;
+		});
+
+		var currentTemplate = Handlebars.compile(template.html());
+
+		container.html(currentTemplate({
+			products : items
+		}));
 	}
 
 	return {
