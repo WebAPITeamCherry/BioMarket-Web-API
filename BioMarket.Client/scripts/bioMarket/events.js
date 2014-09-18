@@ -155,17 +155,16 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 
     // UPDATE FARM
 	$(document).on("click", "#farm-update-button", function () {
-	    var email = $('#farm-email').val(),
-			username = $('#farm-username').val(),
-			oldPassword = $('#farm-old-password').val(),
+	    var email = $('#farm-update-email').val(),
+			username = $('#farm-update-username').val(),
 			newPassword = $('#farm-new-password').val(),
 			repeatPassword = $('#farm-repeat-new-password').val(),
-			name = $('#farm-name').val(),
-			address = $('#farm-address').val(),
-			phone = $('#farm-phone').val(),
-			owner = $('#farm-owner').val(),
-			latitude = $('#farm-latitude').val(),
-			longitude = $('#farm-longitude').val();
+			name = $('#farm-update-name').val(),
+			address = $('#farm-update-address').val(),
+			phone = $('#farm-update-phone').val(),
+			owner = $('#farm-update-owner').val(),
+			latitude = $('#farm-update-latitude').val(),
+			longitude = $('#farm-update-longitude').val();
 
 
 	    if (email.length === 0) {
@@ -187,8 +186,8 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 	        var farm = {
 	            Email: email,
 	            UserName: username,
-	            password: password,
-	            ConfirmPassword: password,
+	            password: newPassword,
+	            ConfirmPassword: repeatPassword,
 	            Name: name,
 	            Address: address,
 	            Phone: phone,
@@ -206,6 +205,15 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 	});
 
 	$(document).on("change", "#files", function(evt){
+		var tgt = evt.target || window.event.srcElement,
+		files = tgt.files;
+
+		// FileReader support
+		if (FileReader && files && files.length) {
+			var fr = new FileReader();
+			fr.onload = function () {
+				document.getElementById('add-offer-image').src = fr.result;
+
 		var options = {
 			files: [
 				{'url': 'https://dl.dropboxusercontent.com', 'filename': evt.target.files[0].name},
@@ -219,9 +227,12 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 
 			error: function (errorMessage) {}
 		};
-		Dropbox.save(options);
 
-		//$("#add-offer-image").attr('src', );
+		Dropbox.save(options);
+			};
+			fr.readAsDataURL(files[0]);
+		}
+
 	});
 
 	// ADD OFFER
