@@ -26,6 +26,8 @@
 
         public int Price { get; set; }
 
+        public Farm Farm { get; set; }
+
         public bool Deleted { get; set; }
     }
 }
