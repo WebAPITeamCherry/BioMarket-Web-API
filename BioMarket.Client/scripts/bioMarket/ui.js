@@ -63,15 +63,12 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 
 	};
 
-	var initShowClientProfile = function ()
+	var initShowClientProfilePage = function ()
 	{
 	    initPage('#menu', $('#menu-container'));
 
 
 	    $('#main-content').load('showClientProfile.html', function () {
-	        $('#client-update-firstname').kendoMaskedTextBox();
-	        $('#client-update-lastname').kendoMaskedTextBox();
-	        $('#client-update-phone').kendoMaskedTextBox();
 	        $('#client-edit-profile-button').kendoButton();
 	    });
 
@@ -203,7 +200,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 		initHomePage: initHomePage,
 		initLoginPage: initLoginPage,
 		initRegisterClientPage: initRegisterClientPage,
-	    initShowClientProfile: initShowClientProfile,
+		initShowClientProfilePage: initShowClientProfilePage,
 		initUpdateClientPage: initUpdateClientPage,
 		initRegisterFarmPage: initRegisterFarmPage,
 		initUpdateFarmPage: initUpdateFarmPage,

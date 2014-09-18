@@ -182,9 +182,9 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 	var populateClientProfile = function () {
 		httpRequest.getJSON(url + 'api/Clients/ByAccount/' + localStorage.getItem('bioMarketUserName'), acceptType)
 			.then(function (success) {
-				$('#client-update-firstname').val(success.FirstName);
-				$('#client-update-lastname').val(success.LastName);
-				$('#client-update-phone').val(success.Phone);
+				$('#client-firstname').text(success.FirstName);
+				$('#client-lastname').text(success.LastName);
+				$('#client-phone').text(success.Phone);
 			},
 			function (err) {
 				alert(JSON.parse(err.responseText).ModelState[""]);
