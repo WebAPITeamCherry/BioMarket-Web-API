@@ -9,7 +9,6 @@
 			cryptojs: 'libs/cryptojs',
 			sha1: 'libs/sha1',
 			underscore: 'libs/underscore',
-			dropbox : 'libs/dropins',
 			httpRequest : "bioMarket/httpRequest",
 			logic: "bioMarket/logic",
 			ui: "bioMarket/ui",
@@ -53,6 +52,10 @@
 
 			this.get("#/logout", function () {
 				logic.logout();
+			});
+
+			this.get("#/addProduct", function () {
+			    ui.initAddProductPage();
 			});
 		});
 

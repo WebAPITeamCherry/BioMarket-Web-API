@@ -1,0 +1,23 @@
+﻿<div id="add-product-page" class="register-page">
+    <label>Product:</label>
+    <input type="text" id="add-product-name" class="text-box">
+    <label>Quantity:</label>
+    <input type="text" id="add-product-quantity" class="text-box">
+    <label>Price:</label>
+    <input type="text" id="add-product-price" class="text-box">
+    <label>Photo:</label>
+    <button id="add-product-choose-photo-button" class="button">Choose photo</button>
+    <a id="dropBoxcontainer"></a>
+    <img src="" alt="" class="photo" id="add-product-image">
+    <input type="file" id="files" class="fileBrowser" accept="image/x-png, image/bmp, image/jpeg" />
+    <button id="add-product-button" class="button">Add</button>
+    <script id="product-template" type="text/x-handlebars-template">
+        <select class="product-list">
+            {{#each products}}
+            <option value={{Name}}>
+                {{Name}}
+            </option>
+            {{/each}}
+        </select>
+    </script>
+</div>

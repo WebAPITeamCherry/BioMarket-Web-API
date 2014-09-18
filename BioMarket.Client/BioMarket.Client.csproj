@@ -65,6 +65,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="addOffer.html" />
+    <Content Include="AddProduct.html" />
     <Content Include="createPost.html" />
     <Content Include="farmInfo.html" />
     <Content Include="getPosts.html" />
@@ -92,6 +94,7 @@
     <Content Include="scripts\libs\sha1.js" />
     <Content Include="scripts\libs\sinon.js" />
     <Content Include="scripts\libs\underscore.js" />
+    <Content Include="showClientProfile.html" />
     <Content Include="styles\BlueOpal\editor.png" />
     <Content Include="styles\BlueOpal\imagebrowser.png" />
     <Content Include="styles\BlueOpal\indeterminate.gif" />

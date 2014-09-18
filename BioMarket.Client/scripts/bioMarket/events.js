@@ -205,6 +205,15 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 	});
 
 	$(document).on("change", "#files", function(evt){
+		var tgt = evt.target || window.event.srcElement,
+		files = tgt.files;
+
+		// FileReader support
+		if (FileReader && files && files.length) {
+			var fr = new FileReader();
+			fr.onload = function () {
+				document.getElementById('add-offer-image').src = fr.result;
+
 		var options = {
 			files: [
 				{'url': 'https://dl.dropboxusercontent.com', 'filename': evt.target.files[0].name},
@@ -218,9 +227,12 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 
 			error: function (errorMessage) {}
 		};
-		Dropbox.save(options);
 
-		//$("#add-offer-image").attr('src', );
+		Dropbox.save(options);
+			};
+			fr.readAsDataURL(files[0]);
+		}
+
 	});
 
 	// ADD OFFER
