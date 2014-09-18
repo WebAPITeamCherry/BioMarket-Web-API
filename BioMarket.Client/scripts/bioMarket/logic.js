@@ -61,7 +61,7 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 			"Phone": client.Phone
 		};
 
-	    httpRequest.putJSON(url + 'api/Account/Update?name=' + localStorage.getItem('bioMarketUserName'), contentType, acceptType, message)
+	    httpRequest.putJSON(url + 'api/Clients/Update?name=' + localStorage.getItem('bioMarketUserName'), contentType, acceptType, message)
 			.then(function (success) {
 				$('#client-update-email').val(' ');
 				$('#client-update-username').val(' ');

@@ -39,7 +39,7 @@
 			});
 
 			this.get("#/updateClient", function () {
-			    ui.initupdateClientPage();
+			    ui.initUpdateClientPage();
 			});
 
 			this.get("#/farmInfo", function () {

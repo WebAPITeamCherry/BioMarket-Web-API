@@ -70,6 +70,7 @@
 
         [Authorize]
         [HttpPut]
+        [HttpOptions]
         public IHttpActionResult Update(string name, FarmModel farm)
         {
             if (!this.ModelState.IsValid)

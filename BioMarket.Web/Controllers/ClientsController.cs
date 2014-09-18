@@ -70,6 +70,8 @@
 
         [Authorize]
         [HttpPut]
+        [HttpOptions]
+        [HttpGet]
         public IHttpActionResult Update(string name, ClientModel client)
         {
             if (!this.ModelState.IsValid)
