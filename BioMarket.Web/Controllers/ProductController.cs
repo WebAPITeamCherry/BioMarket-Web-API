@@ -5,6 +5,7 @@ namespace BioMarket.Web.Controllers
 
     using BioMarket.Data;
     using BioMarket.Web.Models;
+    using BioMarket.Models;
 
 
     public class ProductController : ApiController
@@ -97,7 +98,7 @@ namespace BioMarket.Web.Controllers
 
             existingProduct.Name = product.Name;
             existingProduct.Price = product.Price;
-            existingProduct.Farm = product.Farm;
+            existingProduct.FarmId = product.FarmId;
 
             this.data.SaveChanges();
 
@@ -108,7 +109,7 @@ namespace BioMarket.Web.Controllers
                 Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,
-                Farm = product.Farm
+                FarmId = product.FarmId
             };
 
             return this.Ok(newProduct);
@@ -140,6 +141,37 @@ namespace BioMarket.Web.Controllers
             this.data.SaveChanges();
 
             return this.Ok(product);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IHttpActionResult CreateProduct(ProductModel product)
+        {
+            var isFarmer = this.User.IsInRole("Farmer");
+
+            if (!isFarmer)
+            {
+                return this.BadRequest("You are not a farmer!");
+            }
+
+            if (product == null || !this.ModelState.IsValid)
+            {
+                return BadRequest("Invalid product.");
+            }
+
+            var farm = data.Farms.All().FirstOrDefault(f => f.Account == this.User.Identity.Name);
+            var newProduct = new Product()
+            {
+                Name = product.Name,
+                Price = product.Price,
+                Farm = farm,
+                FarmId = farm.Id
+            };
+
+            this.data.Products.Add(newProduct);
+            this.data.SaveChanges();
+
+            return Ok(newProduct.Id);
         }
     }
 }
