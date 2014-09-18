@@ -66,7 +66,8 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 	// UPDATE CLIENT
 	$(document).on("click", "#client-update-button", function () {
 
-		var email = $('#client-update-email').val(),
+	    var email = $('#client-update-email').val(),
+            username = $('#client-update-username').val(),
 			password = $('#client-update-password').val(),
 			repeatPassword = $('#client-repeat-update-password').val(),
 			firstName = $('#client-update-firstname').val(),
@@ -96,7 +97,8 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 		}
 		else {
 			var client = {
-				Email: email,
+			    Email: email,
+                username: username,
 				password: password,
 				ConfirmPassword: password,
 				FirstName: firstName,
@@ -258,5 +260,16 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 
 			logic.addOffer(offer);
 		}
+	});
+
+
+    // ADD PRODUCT
+	$(document).on("click", "#add-product-button", function () {
+	    var product = {
+	        name: $("#add-product-name").Val(),
+	        price: $("#add-product-price").Val(),
+	    };
+
+	    logic.addProduct(product);
 	});
 });

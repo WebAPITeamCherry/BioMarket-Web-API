@@ -35,7 +35,11 @@
 			});
 
 			this.get("#/myProfile", function () {
-				ui.initUpdateClientPage();
+			    ui.initShowClientProfilePage();
+			});
+
+			this.get("#/updateClient", function () {
+			    ui.initUpdateClientPage();
 			});
 
 			this.get("#/farmInfo", function () {

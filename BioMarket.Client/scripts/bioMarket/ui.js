@@ -59,20 +59,16 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 			$('#client-update-email').focus();
 		});
 
-		logic.populateClientProfile();
+		logic.populateClientUpdateProfile();
 
 	};
-	
 
-	var initShowClientProfile = function ()
+	var initShowClientProfilePage = function ()
 	{
 	    initPage('#menu', $('#menu-container'));
 
 
 	    $('#main-content').load('showClientProfile.html', function () {
-	        $('#client-update-firstname').kendoMaskedTextBox();
-	        $('#client-update-lastname').kendoMaskedTextBox();
-	        $('#client-update-phone').kendoMaskedTextBox();
 	        $('#client-edit-profile-button').kendoButton();
 	    });
 
@@ -147,7 +143,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 			$('#add-offer-choose-photo-button').kendoButton();
 			$('#add-offer-button').kendoButton();
 			$('#add-offer-product').focus();
-			addProducts();
+			addProductsToOffer();
 		});
 	};
 
@@ -161,7 +157,6 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 	        $('#add-product-choose-photo-button').kendoButton();
 	        $('#add-product-button').kendoButton();
 	        $('#add-product-product').focus();
-	        //addProducts();
 	    });
 	};
 
@@ -201,7 +196,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 	}
 
 	// Adding products types from JSON array to Kendo multiselect
-	var addProducts = function() {
+	var addProductsToOffer = function () {
 		var	products = [];
 
 		httpRequest.getJSON(url + 'api/Product/All', contentType, acceptType)
@@ -235,7 +230,7 @@ define(['jquery', 'logic', 'httpRequest', 'handlebars', 'kendo'], function ($,lo
 		initHomePage: initHomePage,
 		initLoginPage: initLoginPage,
 		initRegisterClientPage: initRegisterClientPage,
-	    initShowClientProfile: initShowClientProfile,
+		initShowClientProfilePage: initShowClientProfilePage,
 		initUpdateClientPage: initUpdateClientPage,
 		initRegisterFarmPage: initRegisterFarmPage,
 		initFarmInfoPage: initFarmInfoPage,
