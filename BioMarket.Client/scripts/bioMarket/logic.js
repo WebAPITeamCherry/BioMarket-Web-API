@@ -1,5 +1,5 @@
 define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRequest, ui) {
-	var url = 'http://biomarket.apphb.com/', /*http://localhost:6022/,*/
+	var url = 'http://biomarket.apphb.com/', /*,http://localhost:6022/*/
 		contentType = 'application/json',
 		acceptType = 'application/json';
 
@@ -37,7 +37,7 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 			"Phone": client.Phone
 		};
 
-		httpRequest.postJSON(url + 'api/Account/Update', contentType, acceptType, message)
+		httpRequest.postJSON(url + 'api/Account/Register', contentType, acceptType, message)
 			.then(function (success) {
 				$('#client-register-email').val(' ');
 				$('#client-register-username').val(' ');

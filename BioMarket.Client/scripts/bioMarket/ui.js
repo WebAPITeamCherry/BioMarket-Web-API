@@ -30,7 +30,7 @@ define(['jquery', 'httpRequest', 'handlebars', 'kendo'], function ($, httpReques
 	var initRegisterClientPage = function() {
 		initPage('#menu', $('#menu-container'));
 
-		$('#main-content').load('updateClient.html', function() {
+		$('#main-content').load('registerClient.html', function() {
 			$('#client-register-email').kendoMaskedTextBox();
 			$('#client-register-username').kendoMaskedTextBox();
 			$('#client-register-password').kendoMaskedTextBox();

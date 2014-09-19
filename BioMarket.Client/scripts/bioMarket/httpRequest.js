@@ -19,21 +19,21 @@ define(['Q'], function (Q) {
 			return deferred.promise;
 		};
 
-		var postJSON = function(url, contentType, acceptType, data) {
+		var postJSON = function(url, contentType, acceptType, data, token) {
 			var deferred = Q.defer(),
 				type = 'POST';
 
 			Q.stopUnhandledRejectionTracking();
 
-/*			$.ajax({
-				beforeSend : function( xhr ) {
+			$.ajax({
+/*				beforeSend : function( xhr ) {
 					xhr.setRequestHeader( "Authorization", "bearer " + token );
-				},
+				},*/
 				url : url,
 				type : type,
 				method : type,
 				dataType : "json",
-				ContentType: "application/x-www-form-urlencoded; application/json; charset=utf-8",
+				ContentType: "application/json; charset=utf-8",
 				AcceptType: acceptType,
 				data : data,
 				success: function (data) {
@@ -42,33 +42,7 @@ define(['Q'], function (Q) {
 				error: function (err) {
 					deferred.reject(err);
 				}
-			});*/
-
-
-			var requestOptions = {
-				url: url,
-				type: type,
-				//dataType: "application/x-www-form-urlencoded",
-				data: data,
-				beforeSend: function (xhr) {
-					var token = localStorage.getItem("bioMarketAccessToken");
-
-					if (token !== null) {
-						//xhr.withCredentials = true;
-						xhr.setRequestHeader("Authorization", "Bearer " + token);
-					}
-				},
-				success: function resolveDeferred(requestData) {
-					deferred.resolve(requestData);
-				},
-				error: function rejectDeferred(errorData) {
-					deferred.reject(errorData.responseText);
-				}
-			};
-
-			requestOptions.contentType = "application/json; charset=utf-8";
-
-			$.ajax(requestOptions);
+			});
 
 			return deferred.promise;
 		};
