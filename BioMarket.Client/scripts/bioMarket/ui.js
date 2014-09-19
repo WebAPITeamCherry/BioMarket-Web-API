@@ -1,6 +1,6 @@
 define(['jquery', 'httpRequest', 'handlebars', 'kendo'], function ($, httpRequest) {
 	var START_MENU_SIZE = 300,
-		url = 'http://localhost:6022/', /*'http://biomarket.apphb.com/',*/
+		url = 'http://biomarket.apphb.com/', /*http://localhost:6022/,*/
 		contentType = 'application/json',
 		acceptType = 'application/json';
 
