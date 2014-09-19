@@ -68,10 +68,7 @@
             return this.Ok(client);
         }
 
-        [Authorize]
         [HttpPut]
-        [HttpOptions]
-        [HttpGet]
         public IHttpActionResult Update(string name, ClientModel client)
         {
             if (!this.ModelState.IsValid)
@@ -118,7 +115,6 @@
             return this.Ok(newClient);
         }
 
-        [Authorize]
         [HttpPut]
         public IHttpActionResult Delete(int id)
         {

@@ -56,7 +56,7 @@
             var farm = this.data
             .Farms
                            .All()
-                           .Where(a => a.Name == id && a.Deleted == false)
+                           .Where(a => a.Account == id && a.Deleted == false)
                            .Select(FarmModel.FromFarm)
                            .FirstOrDefault();
 
@@ -68,9 +68,7 @@
             return this.Ok(farm);
         }
 
-        [Authorize]
         [HttpPut]
-        [HttpOptions]
         public IHttpActionResult Update(string name, FarmModel farm)
         {
             if (!this.ModelState.IsValid)
@@ -139,7 +137,6 @@
             return this.Ok(newFarm);
         }
 
-        [Authorize]
         [HttpPut]
         public IHttpActionResult Delete(int id)
         {

@@ -66,8 +66,8 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 	// UPDATE CLIENT
 	$(document).on("click", "#client-update-button", function () {
 
-	    var email = $('#client-update-email').val(),
-            username = $('#client-update-username').val(),
+		var email = $('#client-update-email').val(),
+			username = $('#client-update-username').val(),
 			password = $('#client-update-password').val(),
 			repeatPassword = $('#client-repeat-update-password').val(),
 			firstName = $('#client-update-firstname').val(),
@@ -97,8 +97,8 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 		}
 		else {
 			var client = {
-			    Email: email,
-                username: username,
+				Email: email,
+				username: username,
 				password: password,
 				ConfirmPassword: password,
 				FirstName: firstName,
@@ -155,9 +155,9 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 		}
 	});
 
-    // UPDATE FARM
+	// UPDATE FARM
 	$(document).on("click", "#farm-update-button", function () {
-	    var email = $('#farm-update-email').val(),
+		var email = $('#farm-update-email').val(),
 			username = $('#farm-update-username').val(),
 			newPassword = $('#farm-new-password').val(),
 			repeatPassword = $('#farm-repeat-new-password').val(),
@@ -169,36 +169,36 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 			longitude = $('#farm-update-longitude').val();
 
 
-	    if (email.length === 0) {
-	        alert('Enter email');
-	    }
-	    else if (username.length < 6) {
-	        alert('Username must be at least 6 symbols!');
-	    }
-	    else if (newPassword.length < 6) {
-	        alert('Password must be at least 6 symbols!');
-	    }
-	    else if (newPassword !== repeatPassword) {
-	        alert("The passwords don't match! Please enter them again!");
-	    }
-	    else if (name.length === 0) {
-	        alert('Enter first name!');
-	    }
-	    else {
-	        var farm = {
-	            Email: email,
-	            UserName: username,
-	            password: newPassword,
-	            ConfirmPassword: repeatPassword,
-	            Name: name,
-	            Address: address,
-	            Phone: phone,
-	            Owner: owner,
-	            Latitude: latitude,
-	            Longitude: longitude
-	        };
-	        logic.updateFarm(farm);
-	    }
+		if (email.length === 0) {
+			alert('Enter email');
+		}
+		else if (username.length < 6) {
+			alert('Username must be at least 6 symbols!');
+		}
+		else if (newPassword.length < 6) {
+			alert('Password must be at least 6 symbols!');
+		}
+		else if (newPassword !== repeatPassword) {
+			alert("The passwords don't match! Please enter them again!");
+		}
+		else if (name.length === 0) {
+			alert('Enter first name!');
+		}
+		else {
+			var farm = {
+				Email: email,
+				UserName: username,
+				password: newPassword,
+				ConfirmPassword: repeatPassword,
+				Name: name,
+				Address: address,
+				Phone: phone,
+				Owner: owner,
+				Latitude: latitude,
+				Longitude: longitude
+			};
+			logic.updateFarm(farm);
+		}
 	});
 
 	// CHOOSE PICTURE FOR OFFER
@@ -255,7 +255,7 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 				Product : product,
 				Quantity : quantity,
 				Photo : photo,
-				PostDate : postDate,
+				PostDate : postDate
 			};
 
 			logic.addOffer(offer);
@@ -263,13 +263,22 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 	});
 
 
-    // ADD PRODUCT
+	// ADD PRODUCT
 	$(document).on("click", "#add-product-button", function () {
-	    var product = {
-	        name: $("#add-product-name").Val(),
-	        price: $("#add-product-price").Val(),
-	    };
+		var product = {
+			name: $("#add-product-name").Val(),
+			price: $("#add-product-price").Val(),
+		};
 
-	    logic.addProduct(product);
+		logic.addProduct(product);
+	});
+
+	// GET OFFERS
+	$(document).on("click", "#getoffers-button", function(){
+		var searchFarm = $('#search-farm').val(),
+			searchProduct = $('#search-product').val(),
+			searchDate = $('#search-date').val();
+		
+		logic.getOffers(searchFarm, searchProduct, searchDate);
 	});
 });

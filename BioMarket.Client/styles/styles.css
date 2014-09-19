@@ -52,18 +52,18 @@ body {
 	margin-right: 20%;
 }
 
-.main-content .getpost-page {
+.main-content .getoffers-page {
 	margin-left : 5%;
 	width : 80%;
 }
 
-.main-content .getpost-page .text-box {
+.main-content .getoffers-page .text-box {
 	width : 40%;
 	display : block;
 }
 
 
-.main-content .getpost-page .button {
+.main-content .getoffers-page .button {
 	margin-top : 10px;
 	width : 20%;
 	float : right;
@@ -87,7 +87,7 @@ body {
 }
 
 
-.getpost-page .k-grid {
+.getoffers-page .k-grid {
 	margin-top:50px;
 	width:100%;
 }

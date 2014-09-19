@@ -69,7 +69,6 @@ namespace BioMarket.Web.Controllers
             return this.Ok(product);
         }
 
-        [Authorize]
         [HttpPut]
         public IHttpActionResult Update(int id, ProductModel product)
         {
@@ -115,7 +114,6 @@ namespace BioMarket.Web.Controllers
             return this.Ok(newProduct);
         }
 
-        [Authorize]
         [HttpPut]
         public IHttpActionResult Delete(int id)
         {
@@ -143,10 +141,14 @@ namespace BioMarket.Web.Controllers
             return this.Ok(product);
         }
 
-        [Authorize]
         [HttpPost]
         public IHttpActionResult CreateProduct(ProductModel product)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
             var isFarmer = this.User.IsInRole("Farmer");
 
             if (!isFarmer)
@@ -154,12 +156,14 @@ namespace BioMarket.Web.Controllers
                 return this.BadRequest("You are not a farmer!");
             }
 
-            if (product == null || !this.ModelState.IsValid)
-            {
-                return BadRequest("Invalid product.");
-            }
-
             var farm = data.Farms.All().FirstOrDefault(f => f.Account == this.User.Identity.Name);
+
+            var existingProduct = data.Products.All().FirstOrDefault(p => p.Name == product.Name && p.Farm.Id == farm.Id);
+
+            if (existingProduct != null)
+            {
+                return this.BadRequest("You had already added this product!");
+            }
             var newProduct = new Product()
             {
                 Name = product.Name,
