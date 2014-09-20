@@ -68,6 +68,7 @@
             return this.Ok(client);
         }
 
+        [Authorize(Roles = "Client")]
         [HttpPut]
         public IHttpActionResult Update(string name, ClientModel client)
         {
@@ -75,15 +76,6 @@
             {
                 return this.BadRequest(this.ModelState);
             }
-
-            var isClient = this.User.IsInRole("Client");
-
-            if (!isClient)
-            {
-                return this.BadRequest("You are not client!");
-            }
-
-            var userName = this.User.Identity.Name;
 
             var existingClient = this.data
             .Clients
@@ -115,16 +107,10 @@
             return this.Ok(newClient);
         }
 
+        [Authorize(Roles = "Client")]
         [HttpPut]
         public IHttpActionResult Delete(int id)
         {
-            var isFarmer = this.User.IsInRole("Client");
-
-            if (!isFarmer)
-            {
-                return this.BadRequest("You are not client!");
-            }
-
             var userName = this.User.Identity.Name;
 
             var existingClient = this.data.Farms

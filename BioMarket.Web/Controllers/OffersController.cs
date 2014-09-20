@@ -6,6 +6,7 @@
     using BioMarket.Data;
     using BioMarket.Models;
     using BioMarket.Web.Models;
+    using System.Web.Http.Cors;
 
     public class OffersController : ApiController
     {
@@ -65,7 +66,7 @@
                     offers = offers.Where(o => o.Product.Name == productName);
                 }
 
-                var returnOffers = offers.Select(OfferModel.FromOfferWithProductAndBoughtBuy);
+                var returnOffers = offers.Select(OfferModel.FromOfferForKendoGrid);
 
                 return this.Ok(returnOffers);
             }
@@ -110,7 +111,8 @@
 
             return this.Ok(offer);
         }
-       
+
+        [Authorize(Roles = "Farmer")]
         [HttpPost]
         public IHttpActionResult Add(OfferModel offer)
         {
@@ -119,23 +121,15 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            var isFarmer = this.User.IsInRole("Client");
-
-            if (!isFarmer)
-            {
-                return this.BadRequest("You are not farmer!");
-            }
-
-            var userName = this.User.Identity.Name;
-
-            var farmer = this.data.Farms.All().Where(c => c.Account == userName).FirstOrDefault();
+            var product = this.data.Products.All().FirstOrDefault(p => p.Id == offer.ProductId);
 
             var newOffer = new Offer
             {
                 Quantity = offer.Quantity,
                 ProductPhoto = offer.ProductPhoto,
                 PostDate = offer.PostDate,
-                ProductId = offer.ProductId
+                ProductId = offer.ProductId, 
+                Product = product
             };
 
             this.data.Offers.Add(newOffer);
@@ -146,19 +140,13 @@
             return this.Ok(newOffer);
         }
 
+        [Authorize(Roles = "Client")]
         [HttpPut]
         public IHttpActionResult Buy(int id, OfferModel offer)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
-            }
-
-            var isClient = this.User.IsInRole("Client");
-
-            if (!isClient)
-            {
-                return this.BadRequest("You are not client!");
             }
 
             var userName = this.User.Identity.Name;
@@ -197,16 +185,11 @@
             return this.Ok(newOffer);
         }
 
+        [Authorize(Roles = "Farmer")]
+        [Authorize]
         [HttpPut]
         public IHttpActionResult Delete(int id)
         {
-            var isFarmer = this.User.IsInRole("Farmer");
-
-            if (!isFarmer)
-            {
-                return this.BadRequest("You are not farmer!");
-            }
-
             var userName = this.User.Identity.Name;
 
             var existingOffer = this.data

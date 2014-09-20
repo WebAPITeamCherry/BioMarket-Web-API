@@ -11,6 +11,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using BioMarket.Web.Models;
 using BioMarket.Models;
+using System.Web.Http.Cors;
 
 namespace BioMarket.Web.Providers
 {

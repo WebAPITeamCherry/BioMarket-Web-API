@@ -68,19 +68,13 @@
             return this.Ok(farm);
         }
 
+        [Authorize(Roles = "Farmer")]
         [HttpPut]
         public IHttpActionResult Update(string name, FarmModel farm)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
-            }
-
-            var isFarmer = this.User.IsInRole("Farmer");
-
-            if (!isFarmer)
-            {
-                return this.BadRequest("You are not farmer!");
             }
 
             var userName = this.User.Identity.Name;
@@ -137,16 +131,10 @@
             return this.Ok(newFarm);
         }
 
+        [Authorize(Roles = "Farmer")]
         [HttpPut]
         public IHttpActionResult Delete(int id)
         {
-            var isFarmer = this.User.IsInRole("Farmer");
-
-            if (!isFarmer)
-            {
-                return this.BadRequest("You are not farmer!");
-            }
-
             var userName = this.User.Identity.Name;
 
             var existingFarm = this.data.Farms

@@ -2,19 +2,15 @@ namespace BioMarket.Web.Controllers
 {
     using System.Linq;
     using System.Web.Http;
-
     using BioMarket.Data;
-    using BioMarket.Web.Models;
     using BioMarket.Models;
-
+    using BioMarket.Web.Models;
 
     public class ProductController : ApiController
     {
-
         private readonly IBioMarketData data;
 
-        public ProductController()
-            : this(new BioMarketData())
+        public ProductController() : this(new BioMarketData())
         {
         }
 
@@ -69,6 +65,7 @@ namespace BioMarket.Web.Controllers
             return this.Ok(product);
         }
 
+        [Authorize(Roles = "Farmer")]
         [HttpPut]
         public IHttpActionResult Update(int id, ProductModel product)
         {
@@ -77,18 +74,11 @@ namespace BioMarket.Web.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            var isFarmer = this.User.IsInRole("Farmer");
-
-            if (!isFarmer)
-            {
-                return this.BadRequest("You are not farmer!");
-            }
-
             var existingProduct = this.data
             .Products
-                              .All()
-                              .Where(p => p.Id == id && p.Deleted == false)
-                              .FirstOrDefault();
+                                      .All()
+                                      .Where(p => p.Id == id && p.Deleted == false)
+                                      .FirstOrDefault();
 
             if (existingProduct == null)
             {
@@ -114,16 +104,10 @@ namespace BioMarket.Web.Controllers
             return this.Ok(newProduct);
         }
 
+        [Authorize(Roles = "Farmer")]
         [HttpPut]
         public IHttpActionResult Delete(int id)
         {
-            var isFarmer = this.User.IsInRole("Farmer");
-
-            if (!isFarmer)
-            {
-                return this.BadRequest("You are not farmer!");
-            }
-
             var product = this.data
             .Products.All()
                               .Where(p => p.Id == id && p.Deleted == false)
@@ -141,24 +125,18 @@ namespace BioMarket.Web.Controllers
             return this.Ok(product);
         }
 
+        [Authorize(Roles = "Farmer")]
         [HttpPost]
-        public IHttpActionResult CreateProduct(ProductModel product)
+        public IHttpActionResult Add(ProductModel product)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
             }
 
-            var isFarmer = this.User.IsInRole("Farmer");
+            var farm = this.data.Farms.All().FirstOrDefault(f => f.Account == this.User.Identity.Name);
 
-            if (!isFarmer)
-            {
-                return this.BadRequest("You are not a farmer!");
-            }
-
-            var farm = data.Farms.All().FirstOrDefault(f => f.Account == this.User.Identity.Name);
-
-            var existingProduct = data.Products.All().FirstOrDefault(p => p.Name == product.Name && p.Farm.Id == farm.Id);
+            var existingProduct = this.data.Products.All().FirstOrDefault(p => p.Name == product.Name && p.Farm.Id == farm.Id);
 
             if (existingProduct != null)
             {
@@ -175,7 +153,7 @@ namespace BioMarket.Web.Controllers
             this.data.Products.Add(newProduct);
             this.data.SaveChanges();
 
-            return Ok(newProduct.Id);
+            return this.Ok(newProduct.Id);
         }
     }
 }

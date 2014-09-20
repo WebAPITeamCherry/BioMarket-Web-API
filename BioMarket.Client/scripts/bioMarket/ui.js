@@ -1,6 +1,6 @@
 define(['jquery', 'httpRequest', 'handlebars', 'kendo'], function ($, httpRequest) {
 	var START_MENU_SIZE = 300,
-		url = 'http://biomarket.apphb.com/', /*http://localhost:6022/,*/
+		url = 'http://localhost:6022/', /*http://biomarket.apphb.com/*/
 		contentType = 'application/json',
 		acceptType = 'application/json';
 
@@ -159,9 +159,10 @@ define(['jquery', 'httpRequest', 'handlebars', 'kendo'], function ($, httpReques
 				pageSizes: true,
 				buttonCount: 5
 			},
-			columns:	[	{ field: "user.username", title: "Farm" },
-							{ field: "postDate", title: "Date"},
-							{ field: "title", title: "Product"},
+			columns:	[	{ field: "Farm", title: "Farm" },
+							{ field: "PostDate", title: "Date"},
+							{ field: "ProductName", title: "Product"},
+							{ field: "ProductPhoto", title: "Photo", template: '<img src="#=ProductPhoto #" width="100px" height="100px" alt="image" />'}
 						]
 		});
 	};

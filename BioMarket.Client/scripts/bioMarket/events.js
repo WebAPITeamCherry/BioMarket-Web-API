@@ -216,22 +216,23 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 			fr.onload = function () {
 				document.getElementById('add-offer-image').src = fr.result;
 
-		var options = {
-			files: [
-				{'url': 'https://dl.dropboxusercontent.com', 'filename': evt.target.files[0].name},
-			],
+				var client = new Dropbox.Client({key: '94mhbpnlt8y813b'});
 
-			success: function () {},
+				// Try to finish OAuth authorization.
+				client.authenticate({interactive: false}, function (error) {
+					if (error) {
+						alert('Authentication error: ' + error);
+					}
+				});
 
-			progress: function (progress) {},
+				if (client.isAuthenticated()) {
+					// Client is authenticated. Display UI.
+				}
 
-			cancel: function () {},
-
-			error: function (errorMessage) {}
-		};
-
-		Dropbox.save(options);
+				client.authenticate();
 			};
+
+
 			fr.readAsDataURL(files[0]);
 		}
 
@@ -265,12 +266,30 @@ define(['jquery', 'logic', 'httpRequest'], function ($, logic, httpRequest) {
 
 	// ADD PRODUCT
 	$(document).on("click", "#add-product-button", function () {
-		var product = {
-			name: $("#add-product-name").Val(),
-			price: $("#add-product-price").Val(),
-		};
+		var name= $("#add-product-name").val(),
+			price= $("#add-product-price").val();
 
-		logic.addProduct(product);
+		if (name.length === 0) {
+			alert('Enter product name');
+			$('#add-product-name').focus();
+		}
+		else if (price.length === 0) {
+			alert('Enter product price!');
+			$('#add-product-price').focus();
+		}
+		else if (!isFinite(price)) {
+			alert('Enter valid product price!');
+			$('#add-product-price').focus();
+		}
+		else {
+			var product = {
+				Name : name,
+				Price : price
+			};
+
+			logic.addProduct(product);
+		}
+		
 	});
 
 	// GET OFFERS

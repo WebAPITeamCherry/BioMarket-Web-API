@@ -26,16 +26,39 @@ define(['Q'], function (Q) {
 			Q.stopUnhandledRejectionTracking();
 
 			$.ajax({
-/*				beforeSend : function( xhr ) {
-					xhr.setRequestHeader( "Authorization", "bearer " + token );
-				},*/
-				url : url,
-				type : type,
-				method : type,
-				dataType : "json",
+				beforeSend : function( xhr ) {
+					xhr.setRequestHeader( "Content-Type", "application/json");
+					xhr.setRequestHeader( "Authorization", "bearer " + token);
+				},
+				url: url,
+				type: type,
+				method: type,
+				dataType: "json",
 				ContentType: "application/json; charset=utf-8",
 				AcceptType: acceptType,
-				data : data,
+				data: data,
+				success: function (data) {
+					deferred.resolve(data);
+				},
+				error: function (err) {
+					deferred.reject(err);
+				}
+			});
+
+			return deferred.promise;
+		};
+
+		var uploadPhoto = function(photo) {
+			var deferred = Q.defer(),
+				type = 'POST';
+
+			Q.stopUnhandledRejectionTracking();
+			
+			$.ajax({
+				url: 'https://api.cloudinary.com/v1_1/dj8rvw7c9/image/upload',
+				type: 'Post',
+				method: 'Post',
+				data: photo,
 				success: function (data) {
 					deferred.resolve(data);
 				},
@@ -75,7 +98,8 @@ define(['Q'], function (Q) {
 		return {
 			getJSON: getJSON,
 			postJSON: postJSON,
-			putJSON: putJSON
+			putJSON: putJSON,
+			uploadPhoto : uploadPhoto
 		};
 	}());
 	return httpRequest;

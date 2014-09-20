@@ -1,5 +1,5 @@
-define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRequest, ui) {
-	var url = 'http://biomarket.apphb.com/', /*,http://localhost:6022/*/
+define(['httpRequest', "ui"], function (httpRequest, ui) {
+	var url = 'http://localhost:6022/', /**/
 		contentType = 'application/json',
 		acceptType = 'application/json';
 
@@ -183,8 +183,15 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 	};
 
 	var addProduct = function (product) {
-		// should be implemented.
-		httpRequest.postJSON();
+		httpRequest.postJSON(url + 'api/Product/Add', contentType, acceptType, product, localStorage.getItem('bioMarketAccessToken'))
+			.then(function (success) {
+				window.location.hash = '#/';
+				$('#add-product-name').val(' ');
+				$('#add-product-price').val(' ');
+			},
+			function (err) {
+				alert(err.statusText);
+			});
 	};
 
 	var populateClientUpdateProfile = function () {
@@ -198,7 +205,8 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 				$('#client-phone').text(success.Phone);
 			},
 			function (err) {
-				alert(err.statusText);
+				alert("You are not register client. Please login in your client profile");
+				window.location.hash = '#/';
 			});
 	};
 
@@ -215,7 +223,8 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 				$('#farm-update-longitude').val(success.Longitude);
 			},
 			function (err) {
-				alert(err.statusText);
+				alert("You are not register farm. Please login in your farm profile");
+				window.location.hash = '#/';
 			});
 	};
 
@@ -256,6 +265,7 @@ define(['httpRequest', "ui", "underscore", "cryptojs", "sha1"], function (httpRe
 		populateFarmUpdateProfile: populateFarmUpdateProfile,
 		updateFarm: updateFarm,
 		addOffer: addOffer,
-		getOffers: getOffers
+		getOffers: getOffers,
+		addProduct: addProduct
 	};
 });

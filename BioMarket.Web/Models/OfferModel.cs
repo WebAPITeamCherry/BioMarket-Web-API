@@ -23,6 +23,23 @@
             }
         }
 
+        public static Expression<Func<Offer, OfferModel>> FromOfferForKendoGrid
+        {
+            get
+            {
+                return a => new OfferModel
+                {
+                    Id = a.Id,
+                    Quantity = a.Quantity,
+                    ProductPhoto = a.ProductPhoto,
+                    PostDate = a.PostDate,
+                    Farm = a.Product.Farm.Name,
+                    FarmId = a.Product.FarmId,
+                    ProductName = a.Product.Name
+                };
+            }
+        }
+
         public static Expression<Func<Offer, OfferModel>> FromOfferWithProductAndBoughtBuy
         {
             get
@@ -60,6 +77,12 @@
         public DateTime PostDate { get; set; }
 
         public DateTime? BoughtDate { get; set; }
+
+        public string Farm { get; set; }
+
+        public int FarmId { get; set; }
+
+        public string ProductName { get; set; }
 
         public bool Deleted { get; set; }
     }
